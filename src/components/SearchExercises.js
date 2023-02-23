@@ -10,11 +10,16 @@ const SearchExercises = () => {
 
   useEffect(() => {
     const fetchExercisesData = async () => {
-      const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercise/bodyPartList', exerciseOptions);
+      try {
+        const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions);
 
-      setBodyParts(['all', ...bodyPartsData]);
+        setBodyParts(['all', ...bodyPartsData]);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [])
+    fetchExercisesData();
+  }, []);
 
   const handleSearch = async () => {
     if(search) {
@@ -32,7 +37,7 @@ const SearchExercises = () => {
       setExercises(searchedExercises);
     }
   }
-
+  console.log(bodyParts)
   return (
     <Stack alignItems="center" mt="37px"
     justifyContent="center" p="20px">
