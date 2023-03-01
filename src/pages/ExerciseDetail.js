@@ -4,18 +4,19 @@ import { Box } from '@mui/material';
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 import Detail from '../components/Detail';
 import ExerciseVideos from '../components/ExerciseVideos';
-import SimilarExercises from '../components/ExerciseVideos';
+import { SimilarExercises } from '../components/SimilarExercises';
 
 const ExerciseDetail = () => {
-  const [ExerciseDetail, setExerciseDetail] = useState({})
+  const [exerciseDetail, setExerciseDetail] = useState({})
   const { id } = useParams();
   useEffect(() => {
     const fetchExercisesData = async () => {
       const exerciseDbUrl = 'https://exercisedb.p.rapidapi.com/exercises/bodyPartList';
       const youtubeSearchUrl = 'https://youtube-search-and-download.p.rapidapi.com';
 
-      const exerciseDetailData = await fetchData(`${exerciseDbUrl}/exercises/${id}`, exerciseOptions);
+      const exerciseDetailData = await fetchData(`${exerciseDbUrl}/exercises/exercise/${id}`, exerciseOptions);
 
+      console.log({exerciseDetailData})
       setExerciseDetail(exerciseDetailData)
     }
     fetchExercisesData();
@@ -23,7 +24,7 @@ const ExerciseDetail = () => {
   
   return (
     <Box>
-      <Detail ExerciseDetail={ExerciseDetail}/>
+      <Detail exerciseDetail={exerciseDetail}/>
       <ExerciseVideos />
       <SimilarExercises />
     </Box>
